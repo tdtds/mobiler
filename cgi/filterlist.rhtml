@@ -1,0 +1,41 @@
+<h1>Mobiler: フィルタリスト</h1>
+
+<h2>「<%= @conf %>」に設定されているフィルタ</h2>
+<% current = []; current_filters do |filter| current << filter; end %>
+
+<form method="POST" action="confsave.cgi">
+<input type="hidden" name="conf" value="<%= @conf.sub( %r|.*/|, '' ) %>">
+<table>
+	<tr>
+	<th></th>
+	<th>フィルタ名</th>
+	<th>パラメタ</th>
+	</tr>
+<% 0.upto( 9 ) do |i| %>
+	<tr>
+	<td align="center"><%= i+1 %></td>
+	<td><select name="<%= "filter#{i}" %>">
+	<option value="">--なし--</option>
+	<% all_filters do |klass, name, desc| %>
+	<option value="<%= klass %>" <%= if current[i] and current[i].description[0] == klass then 'selected' else '' end %>>
+	<%= name %>
+	</option>
+	<% end %>
+	</select></td>
+	<td><input size="40" name="<%= "param#{i}" %>" value="<%= if current[i] then current[i].options.collect{|p|"'#{p}'"}.join(',') else '' end %>" /></td>
+	</tr>
+<% end %>
+</table>
+分割サイズ: <input size="10" name="split_size" value="<%= $mobiler.split_size %>" /> byte<br />
+最大分割数: <input size="10" name="split_limit" value="<%= $mobiler.split_limit %>" />(超過分は捨てられます)<br />
+<input type="submit" value="変更" />
+</form>
+
+<hr />
+
+<h2>フィルタの説明</h2>
+<dl><% all_filters do |klass, name, desc| %>
+<dt><%= name %> (<%= klass.sub( /Filter$/, '' ) %>)</dt>
+<dd><%= desc %></a></dd>
+<% end %></dl>
+

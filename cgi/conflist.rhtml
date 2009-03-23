@@ -1,0 +1,9 @@
+<h1>Mobiler: <%= @user %>設定リスト</h1>
+<ul><% @confs.each do |conf| %>
+<li><a href="filterlist.cgi?conf=<%= conf %>"><%= conf %></a></li>
+<% end %></ul>
+
+<form method="GET" action="filterlist.cgi">
+新規追加: <input name="conf" size="40" /><input type="submit" value="追加" /><br />
+※ユーザ名やスラッシュを含めないで下さい。
+</form>

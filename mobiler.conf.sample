@@ -1,0 +1,23 @@
+#
+# mobiler.conf: Mobiler configuration sample
+#
+# Copyright (C) All right reserved by TADA Tadashi <sho@spc.gr.jp> 2001
+# You can redistribute it and/or modify it under the same term as GPL2.
+#
+
+# how to delivery 'command' or 'smtp' (or 'test' for DEBUG)
+$how = 'smtp'
+
+# real mail address
+$mail_from = 'your@real.mail.address'
+
+# delivery command when how == 'command'
+$delivery_command = "/var/qmail/bin/qmail-inject -f#{$mail_from} -a"
+
+# SMTP host when how == 'smtp'
+$smtp_host = 'smtp.your.site'
+$smtp_port = 25
+
+# path of log file
+$logfile = '/var/log/mobiler.log'
+

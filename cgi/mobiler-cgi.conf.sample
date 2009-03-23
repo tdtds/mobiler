@@ -1,0 +1,10 @@
+#
+# mobiler-cgi.conf $Revision: 1.2 $: configration file of mobiler-cgi
+#
+
+# path of mobiler.rb
+MOBILER_PATH = '/usr/local/lib/mobiler'
+
+# CSS URL
+CSS = 'http://www.spc.gr.jp/mobiler/mobiler.css'
+

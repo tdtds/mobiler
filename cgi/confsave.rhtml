@@ -1,0 +1,11 @@
+<h1>Mobiler: <%= @conf %>保存</h1>
+<p>　「<%= @conf %>」を以下の設定で保存しました。</p>
+
+<table border>
+<tr><th>フィルタ名</th><th>パラメタ</th></tr>
+<% @filters.each do |pair| %>
+<tr><td><%= pair[0].description[1] %></td><td><%= pair[1] %></td></tr>
+<% end %>
+</table>
+分割サイズ: <%= $split_size %> bytes<br />
+最大分割数: <%= $split_limit %>
