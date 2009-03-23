@@ -1,0 +1,7 @@
+filter_list = [
+<% @filters.each do |pair| %>   ['<%= pair[0].class %>', <%= quote( pair[1] ) %>],
+<% end %>]
+
+split_size = <%= $split_size %>
+split_limit = <%= $split_limit %>
+
