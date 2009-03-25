@@ -5,7 +5,7 @@
 # You can redistribute it and/or modify it under the same term as GPL2.
 #
 
-# how to delivery 'command' or 'smtp' (or 'test' for DEBUG)
+# how to delivery 'command' or 'smtp' (or 'file' for DEBUG)
 $how = 'smtp'
 
 # real mail address
