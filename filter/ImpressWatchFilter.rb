@@ -14,7 +14,7 @@ class ImpressWatchFilter < Filter
 	end
 
 	def header_filter( header )
-		header.sub( /^Subject:\s+\[(.).*? Watch.*?:(GOUGAI_)?\d{4}(.*?)\] .*$/, 'Subject: [\1W:\3]' )
+		header.sub( /^Subject:\s+\[(.).*? Watch.*?:(GOUGAI_)?\d{4}(.*?)\]\s*.*$/, 'Subject: [\1W:\3]' )
 	end
 
 	def body_filter( body )
@@ -22,11 +22,13 @@ class ImpressWatchFilter < Filter
 		body.gsub!( '　', ' ' )
 		body.gsub!( /(-|=|■|┏|━|┓|┗|┛){2,}/, '--' )
 		body.gsub!( / {2,}/, ' ' )
-		body.gsub!( %r{(http|https|ftp)://[\(\)%#!/0-9a-zA-Z_$@.&+-,'"*=;?:~-]+}, '(URL)' )
+		#body.gsub!( %r{(http|https|ftp)://[\(\)%#!/0-9a-zA-Z_$@.&+-,'"*=;?:~-]+}, '(URL)' )
 		body.gsub!( /^\(.*\)$/, '' )
 		body.gsub!( /\[写\]/, '' )
 		body.gsub!( /^ ?\[Reported by (.*?)@.*\]/, "<\\1>\n--" )
-		body.gsub!( /^\[Reported by (.*)]/, "<\\1>\n--" )
+		body.gsub!( /^ ?\[Reported by (.+)\]/, "<\\1>\n--" )
+		body.gsub!( /^\[Reported by (.*)\]/, "<\\1>\n--" )
+		body.gsub!( /^\[([^\s]+).*\]$/, "<\\1>\n--" )
 		body.gsub!( /デイリーやじうま/, 'やじ馬' )
 		body.gsub!( /ダイジェストニュース/, 'DIGEST' )
 		body.gsub!( /ウォッチャーが選ぶ今日のサイト/, 'サイト' )
@@ -58,6 +60,9 @@ class ImpressWatchFilter < Filter
 				pr = !pr
 				nil
 			elsif /^●.*? WatchのWWWサーバー$/ =~ item
+				footer = true
+				nil
+			elsif /^■編集部より$/ =~ item
 				footer = true
 				nil
 			elsif /より詳しく、豊富なニュースや/ =~ item
