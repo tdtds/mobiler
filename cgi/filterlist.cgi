@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -Ke
+#!/usr/bin/ruby -Ke
 
 require 'mobiler-cgi'
 

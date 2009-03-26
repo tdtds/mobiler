@@ -15,26 +15,31 @@ class RemoveAttachFilter < Filter
 
 	def header_filter( header )
 		@boundary = nil
-		header.to_a.collect do |item|
-			if @boundary == :continue then
- 				item.split( ';' ).each do |c|
- 					if /^boundary="(.*?)"/i =~ c.strip then @boundary = "--#$1\n" end
- 				end
- 				next
-			end
+		content_type_now = false
+		content_type = nil
+		result = header.to_a.collect do |item|
 			if /^Content-Type:\s+(.*)$/i =~ item then
+				content_type_now = true
 				content_type = $1
-				if /multipart\/mixed/i =~ content_type then
-					content_type.split( ';' ).each do |c|
-						if /^boundary="(.*?)"/i =~ c.strip then @boundary = "--#$1\n" end
-					end
-					@boundary = :continue unless @boundary
-				end
 				%Q|Content-Type: text/plain; charset="iso-2022-jp"\n|
+			elsif /^\s+/ =~ item and content_type_now
+				content_type << item
+				nil
 			else
+				content_type_now = false
 				item
 			end
 		end.join
+		
+		if content_type
+			if /multipart\/mixed/i =~ content_type then
+				content_type.split( ';' ).each do |c|
+					if /^boundary="(.*?)"/i =~ c.strip then @boundary = "--#$1\n" end
+				end
+			end
+		end
+		
+		result
 	end
 
 	def body_filter( body )

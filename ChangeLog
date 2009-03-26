@@ -1,3 +1,8 @@
+2009-03-25 TADA Tadashi
+	* filter/ImpressWatchFilter.rb: supported recent mail format.
+	* README: converted charset to UTF-8.
+	* filter/RemoveAttachFilter.rb: applied moriq's patch.
+
 2004-02-02 TADA Tadashi <sho@spc.gr.jp>
 	* ImpressWatchFilter, WiredFilter: no replace URL to '(URL)'.
 

@@ -5,7 +5,7 @@
 # Copyright (C) All right reserved by TADA Tadashi <sho@spc.gr.jp> 2001
 # You can redistribute it and/or modify it under the same term as GPL2.
 #
-MOBILER_VERSION = '1.2.0.20040202'
+MOBILER_VERSION = '1.2.0.20090326'
 
 #
 # exnhanced String class
